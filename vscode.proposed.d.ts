@@ -218,6 +218,7 @@ declare module 'vscode' {
 		readonly fileName: string;
 		readonly viewType: string;
 		readonly isDirty: boolean;
+		readonly isUntitled: boolean;
 		readonly cells: NotebookCell[];
 		languages: string[];
 		displayOrder?: GlobPattern[];
@@ -383,6 +384,11 @@ declare module 'vscode' {
 		readonly document: NotebookDocument;
 		readonly cell: NotebookCell;
 		readonly language: string;
+	}
+
+	export interface NotebookCellMetadataChangeEvent {
+		readonly document: NotebookDocument;
+		readonly cell: NotebookCell;
 	}
 
 	export interface NotebookCellData {
@@ -575,6 +581,7 @@ declare module 'vscode' {
 		export const onDidChangeNotebookCells: Event<NotebookCellsChangeEvent>;
 		export const onDidChangeCellOutputs: Event<NotebookCellOutputsChangeEvent>;
 		export const onDidChangeCellLanguage: Event<NotebookCellLanguageChangeEvent>;
+		export const onDidChangeCellMetadata: Event<NotebookCellMetadataChangeEvent>;
 		/**
 		 * Create a document that is the concatenation of all  notebook cells. By default all code-cells are included
 		 * but a selector can be provided to narrow to down the set of cells.
